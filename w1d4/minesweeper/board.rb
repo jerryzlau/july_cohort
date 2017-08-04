@@ -7,7 +7,6 @@ class Board
   def initialize(board_size = 9)
     @grid = Array.new(board_size) {Array.new(board_size) {Tile.new(false,false)}}
     place_bombs
-    #p @grid[0].map {|el| el.bomb}
   end
 
   def [](pos)
@@ -52,6 +51,7 @@ class Board
       print "#{idx}"
       @grid[idx].each do |el|
         print "* " if el.bomb
+        print "# " if el.visible
         print "  " unless el.bomb
       end
     end
