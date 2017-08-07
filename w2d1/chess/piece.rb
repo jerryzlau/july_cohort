@@ -27,7 +27,7 @@ end
 
 class NullPiece < Piece
 
-  def initialize(colour)
+  def initialize
     @colour = nil
     @icon = ' '
   end
