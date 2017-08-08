@@ -39,4 +39,10 @@ class Display
       :black
     end
   end
+
+  # def toggle_selected
+  #   if @cursor.selected
+  #     start_pos = @cursor.cursor_pos
+  #
+  # end
 end

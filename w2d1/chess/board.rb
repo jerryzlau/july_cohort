@@ -37,16 +37,24 @@ class Board
   end
 
   def [](pos)
-    x,y = preprocess
+    x = pos[0]
+    y = pos[1]
     @grid[x][y]
   end
 
-  # def []=(pos, target)
-  #   x,y = pos
-  #   @grid[x][y] = target
-  # end
+  def move_piece(start_pos, end_pos)
+    raise "start position and end position are the same" if start_pos == end_pos
+    raise "no piece at start position" if self[start_pos].is_a?(NullPiece)
+    raise "end position has an exisiting piece" unless self[end_pos].is_a?(NullPiece)
+    start_piece = self[start_pos]
+    self[start_pos] = self[end_pos]
+    self[end_pos] = start_piece
+  end
 
-
-
+  def []=(pos, target)
+    x = pos[0]
+    y = pos[1]
+    @grid[x][y] = target
+  end
 
 end

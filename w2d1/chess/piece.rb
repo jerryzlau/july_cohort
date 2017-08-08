@@ -8,7 +8,7 @@ class Piece
     @colour = colour
     @icon = pick_icon(colour, self.class)
   end
-
+ 
   def pick_icon(colour, piece_class)
     piece_icons =
     {:cyan => {Bishop => '♝ ',
