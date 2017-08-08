@@ -1,5 +1,5 @@
 class Piece
-  attr_reader  :colour
+  attr_reader :colour, :icon
 
   def initialize(colour)
     @colour = colour
@@ -8,18 +8,18 @@ class Piece
 
   def pick_icon(colour, piece_class)
     piece_icons =
-    {:white => {Bishop => '♗',
-                Rook => '♖',
-                Knight => '♘',
-                Queen => '♕',
-                King => '♔',
-                Pawn => '♙'},
-    :black =>  {Bishop => '♝',
-                Rook => '♜',
-                Knight => '♞',
-                Queen => '♛',
-                King => '♚',
-                Pawn => '♟'}}
+    {:cyan => {Bishop => '♝ ',
+                Rook => '♜ ',
+                Knight => '♞ ',
+                Queen => '♛ ',
+                King => '♚ ',
+                Pawn => '♟ '},
+    :red =>  {Bishop => '♝ ',
+                Rook => '♜ ',
+                Knight => '♞ ',
+                Queen => '♛ ',
+                King => '♚ ',
+                Pawn => '♟ '}}
 
     piece_icons[colour][piece_class]
   end
@@ -29,7 +29,7 @@ class NullPiece < Piece
 
   def initialize
     @colour = nil
-    @icon = ' '
+    @icon = '  '
   end
 
 end
