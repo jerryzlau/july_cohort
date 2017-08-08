@@ -52,10 +52,14 @@ class Board
       raise "can't step on your own piece'"
     end
 
-    #make moves 
+    #make moves
     start_piece = self[start_pos]
     self[start_pos] = self[end_pos]
     self[end_pos] = start_piece
+  end
+
+  def show_moves(start_pos)
+    p self[start_pos].moves(start_pos)
   end
 
   def []=(pos, target)

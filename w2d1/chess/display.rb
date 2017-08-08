@@ -32,6 +32,10 @@ class Display
 
       if @cursor.selected == true && start_pos.nil?
         start_pos = @cursor.cursor_pos.dup
+        #testing piece object moves
+        @board.show_moves(start_pos)
+        sleep(2)
+
         @cursor.selected = false
         @show_selected = true
       elsif @cursor.selected == true && start_pos
@@ -44,10 +48,8 @@ class Display
 
       system 'clear'
     end
-    render 
+    render
   end
-
-
 
   def tile_colour(row, col)
     if @cursor.cursor_pos == [row,col]
