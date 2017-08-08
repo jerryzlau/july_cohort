@@ -81,7 +81,7 @@ class Cursor
     case key
     when :return, :space
       @cursor_pos
-      @selected = true
+      @selected = !@selected
     when :left, :right, :up, :down
       update_pos(MOVES[key])
     when :ctrl_c

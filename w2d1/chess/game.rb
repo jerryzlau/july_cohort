@@ -5,14 +5,18 @@ class Game
 
   end
 
-  def run
+  def play
 
   end
 
+
+  def make
+
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
   d = Display.new(b)
-  d.get_move
+  d.make_move
 end

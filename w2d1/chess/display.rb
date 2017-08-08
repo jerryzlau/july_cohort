@@ -1,6 +1,7 @@
 require_relative 'board.rb'
 require_relative 'cursor.rb'
 require 'colorize'
+require 'byebug'
 class Display
 
   attr_reader :cursor
@@ -20,19 +21,36 @@ class Display
     end
   end
 
-  def get_move
+  def make_move
     moved = false
     @cursor.selected = false
+    @show_selected = false
+    start_pos = nil
     until moved
-      @cursor.get_input
-      system 'clear'
       render
+      @cursor.get_input
+
+      if @cursor.selected == true && start_pos.nil?
+        start_pos = @cursor.cursor_pos.dup
+        @cursor.selected = false
+        @show_selected = true
+      elsif @cursor.selected == true && start_pos
+        end_pos = @cursor.cursor_pos
+        @board.move_piece(start_pos, end_pos)
+        @cursor.selected = false
+        @show_selected = false
+        moved = true
+      end
+
+      system 'clear'
     end
   end
 
+
+
   def tile_colour(row, col)
     if @cursor.cursor_pos == [row,col]
-      @cursor.selected ? :yellow : :green
+      @show_selected ? :yellow : :green
     elsif (row + col).even?
       :white
     else
@@ -40,9 +58,5 @@ class Display
     end
   end
 
-  # def toggle_selected
-  #   if @cursor.selected
-  #     start_pos = @cursor.cursor_pos
-  #
-  # end
+
 end
