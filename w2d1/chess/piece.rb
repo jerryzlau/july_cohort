@@ -1,3 +1,6 @@
+require_relative 'board.rb'
+require 'singleton'
+
 class Piece
   attr_reader :colour, :icon
 
@@ -26,6 +29,7 @@ class Piece
 end
 
 class NullPiece < Piece
+  include Singleton
 
   def initialize
     @colour = nil
@@ -35,6 +39,7 @@ class NullPiece < Piece
 end
 
 class Bishop < Piece
+  # include SlidingPiece
 
   def initialize(colour)
     super
@@ -43,6 +48,7 @@ class Bishop < Piece
 end
 
 class Rook < Piece
+  # include SlidingPiece
 
   def initialize(colour)
     super
@@ -51,6 +57,7 @@ class Rook < Piece
 end
 
 class Queen < Piece
+  # include SlidingPiece
 
   def initialize(colour)
     super
@@ -59,6 +66,7 @@ class Queen < Piece
 end
 
 class Knight < Piece
+  # include SteppingPiece
 
   def initialize(colour)
     super
@@ -67,6 +75,7 @@ class Knight < Piece
 end
 
 class King < Piece
+  # include SteppingPiece
 
   def initialize(colour)
     super
@@ -78,6 +87,27 @@ class Pawn < Piece
 
   def initialize(colour)
     super
+  end
+
+end
+
+module SlidingPiece
+  def moves
+
+  end
+
+  def move_dirs
+
+  end
+end
+
+module SteppingPiece
+  def moves
+
+  end
+
+  def move_dirs
+
   end
 
 end

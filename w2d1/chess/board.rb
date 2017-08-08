@@ -10,7 +10,7 @@ class Board
   end
 
   def initialize_grid(type = :standard)
-    null_piece = NullPiece.new
+    null_piece = NullPiece.instance
     if type == :standard
       grid = Array.new(8) {Array.new(8) {null_piece}}
       #back line
