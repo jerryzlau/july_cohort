@@ -44,6 +44,7 @@ class Display
 
       system 'clear'
     end
+    render 
   end
 
 

@@ -1,22 +1,24 @@
-require_relative "board"
+require_relative "board.rb"
+require_relative "display.rb"
+
 class Game
 
   def initialize
-
+    b = Board.new
+    @d = Display.new(b)
   end
 
   def play
-
+    @d.make_move
   end
 
+  
 
-  def make
 
-  end
+
 end
 
 if __FILE__ == $PROGRAM_NAME
-  b = Board.new
-  d = Display.new(b)
-  d.make_move
+  game = Game.new
+  game.play
 end
