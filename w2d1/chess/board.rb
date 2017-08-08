@@ -2,7 +2,7 @@ require_relative 'piece.rb'
 require 'colorize'
 require_relative 'display.rb'
 class Board
-
+  NULLPIECE = NullPiece.instance
   attr_reader :grid
 
   def initialize
@@ -10,9 +10,9 @@ class Board
   end
 
   def initialize_grid(type = :standard)
-    null_piece = NullPiece.instance
+    # @null_piece = NullPiece.instance
     if type == :standard
-      grid = Array.new(8) {Array.new(8) {null_piece}}
+      grid = Array.new(8) {Array.new(8) {NULLPIECE}}
       #back line
       grid[0] = back_line(:red)
       grid[7] = back_line(:cyan)
@@ -54,12 +54,16 @@ class Board
 
     #make moves
     start_piece = self[start_pos]
-    self[start_pos] = self[end_pos]
+    self[start_pos] = NULLPIECE
     self[end_pos] = start_piece
   end
 
-  def show_moves(start_pos)
-    p self[start_pos].moves(start_pos)
+  def valid_move?(start_pos, end_pos)
+    if self[start_pos].move_into_check?(start_pos, end_pos)
+      true
+    else
+      false
+    end
   end
 
   def []=(pos, target)

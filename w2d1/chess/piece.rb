@@ -35,14 +35,18 @@ module SlidingPiece
 
     self.steps.each do |step|
       new_start_pos = start_pos
-      until new_start_pos.include?(8)
+      until !new_start_pos[0].between?(0,7) || !new_start_pos[1].between?(0,7)
         new_start_pos = [(new_start_pos[0]+step[0]),(new_start_pos[1]+step[1])]
         all_possible_moves << new_start_pos
       end
-      puts "outside loop"
+
     end
 
-    p all_possible_moves
+    all_possible_moves.reject {|el| el.first < 0 || el.last < 0}
+  end
+
+  def move_into_check?(start_pos, end_pos)
+    moves(start_pos).include?(end_pos)
   end
 
 end

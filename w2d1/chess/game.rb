@@ -9,10 +9,19 @@ class Game
   end
 
   def play
-    @d.make_move
+    stopper = false
+    until stopper
+      begin
+        @d.make_move
+      rescue
+        puts "invalid move"
+        retry
+      end
+    end
+
   end
 
-  
+
 
 
 
