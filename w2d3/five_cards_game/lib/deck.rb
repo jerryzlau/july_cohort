@@ -17,8 +17,12 @@ class Deck
     populated_deck
   end
 
+  def take(n = 1)
+    n.times {  @deck.shift }
+  end
+
   def deal
-    @deck.shift 
+    @deck.shift
   end
 
 end

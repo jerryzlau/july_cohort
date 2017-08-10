@@ -12,4 +12,14 @@ class Card
   def self.valid_suits
     %i(diamond spade club heart)
   end
+
+  def to_s
+    "#{self.value} : #{self.suit}"
+  end
+
+  def ==(card2)
+    self.value == card2.value
+  end
+
+
 end
