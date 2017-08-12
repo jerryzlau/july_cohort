@@ -15,15 +15,13 @@ class Node
   def remove
     # optional but useful, connects previous link to next link
     # and removes self from list.
-    self.prev.next = self.next
-    self.next.prev = self.prev
-    self.next = nil
-    self.prev = nil
+    @prev.next = @next
+    @next.prev = @prev
   end
 end
 
 class LinkedList
-  include Enumerable 
+  include Enumerable
   def initialize
     @head = Node.new
     @tail = Node.new
@@ -49,11 +47,12 @@ class LinkedList
   end
 
   def get(key)
-    current = first
-    until current.key == key || current.next == @tail
+    current = @head
+    until current == @tail
+      return current.val if current.key == key
       current = current.next
     end
-    current.key == key ? current.val : nil
+    nil
   end
 
   def include?(key)
@@ -70,8 +69,9 @@ class LinkedList
 
   def update(key, val)
     return if empty?
-    current = first
-    until current.next == @tail || current.key == key
+    current = @head
+    until current == @tail
+      break if current.key == key
       current = current.next
     end
     current.key == key ? current.val = val : return
@@ -79,11 +79,11 @@ class LinkedList
 
   def remove(key)
     current = first
-    until current.key == key || current.next == @tail
+    until current == @tail
+      break if current.key == key
       current = current.next
     end
-    current.remove if current.key == key
-
+    current.remove
   end
 
   def each
