@@ -8,4 +8,8 @@ class Enrollment < ApplicationRecord
   primary_key: :id,
   foreign_key: :student_id,
   class_name: 'User'
+
+  def [](idx)
+    Enrollment.find_by_id(idx)
+  end
 end

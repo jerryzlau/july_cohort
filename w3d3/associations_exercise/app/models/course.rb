@@ -8,7 +8,7 @@ class Course < ApplicationRecord
   through: :enrollments,
   source: :user
 
-  has_many :prerequisite,
+  belongs_to :prerequisite,
   primary_key: :id,
   foreign_key: :prereq_id,
   class_name: 'Course'
