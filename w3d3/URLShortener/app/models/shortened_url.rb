@@ -23,7 +23,7 @@ class ShortenedUrl < ApplicationRecord
   source: :visitors
 
   def self.return_long_url(short_url)
-    self.select(:long_url).where(:short_url == short_url).first.long_url
+    self.select(:long_url).where(short_url: short_url).first.long_url
   end
 
   def num_clicks

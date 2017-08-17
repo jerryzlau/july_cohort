@@ -27,5 +27,8 @@ else
   puts "Type in the shortened URL"
   shortened_url = gets.chomp
 
-  puts ShortenedUrl.return_long_url(shortened_url)
+  p website = ShortenedUrl.return_long_url(shortened_url)
+
+  command = "launchy #{website}"
+  system(command)
 end
