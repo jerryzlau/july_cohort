@@ -1,0 +1,14 @@
+.section-nav{
+  display: flex;
+  margin: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding-left: 70px;
+  padding-right: 70px;
+  padding-bottom: 5px;
+}
+
+.section-nav a:hover{
+  text-decoration: underline;
+}
