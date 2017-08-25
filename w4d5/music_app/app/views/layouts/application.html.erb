@@ -9,15 +9,15 @@
   </head>
 
   <body>
-    <header>
-      <% if current_user %>
+    <div>
+      <% if logged_in? %>
         <%= current_user.email %>
         <%= button_to 'log out', session_url, method: :delete %>
       <% else %>
         <%= link_to 'Sign in', new_session_url %>
         <%= link_to 'Sign up', new_user_url %>
       <% end %>
-    </header>
+    </div>
     <%= yield %>
   </body>
 </html>
