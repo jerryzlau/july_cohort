@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   def new
+    @user = User.new
     render :new
   end
 
@@ -8,7 +9,7 @@ class UsersController < ApplicationController
     #for signing up
     @user = User.new(user_params)
     if @user.save
-      render json: "You are logged on!" #redirect to app page
+      redirect_to new_session_url #redirect to app page
     else
       flash[:errors] = @user.errors.full_messages
       render :new
@@ -16,8 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    #redirect to music app
-    render json: "You are logged on!"
+    render :show
   end
 
   private

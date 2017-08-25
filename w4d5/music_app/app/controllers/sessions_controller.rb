@@ -9,12 +9,19 @@ class SessionsController < ApplicationController
     password = params[:user][:password]
     @user = User.find_by_credentials(username, password)
     if @user
-      render json: "Welcome back #{@user.email}!"
+      log_in_user!(@user)
+      # redirect_to user_url
+      render json: "You are logged in #{@user.email}"
     else
       flash.now[:errors] ||= []
       flash[:errors] << "Invalid email or password"
       render :new
     end
+  end
+
+  def destroy
+    log_out_user!
+    render :new
   end
 
 

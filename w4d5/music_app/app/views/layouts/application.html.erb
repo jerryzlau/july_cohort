@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MusicApp</title>
+    <title>Music App</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -9,6 +9,15 @@
   </head>
 
   <body>
+    <header>
+      <% if current_user %>
+        <%= current_user.email %>
+        <%= button_to 'log out', session_url, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign in', new_session_url %>
+        <%= link_to 'Sign up', new_user_url %>
+      <% end %>
+    </header>
     <%= yield %>
   </body>
 </html>
