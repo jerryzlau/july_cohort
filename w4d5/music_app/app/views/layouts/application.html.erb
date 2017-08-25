@@ -9,15 +9,23 @@
   </head>
 
   <body>
-    <div>
-      <% if logged_in? %>
-        <%= current_user.email %>
-        <%= button_to 'log out', session_url, method: :delete %>
-      <% else %>
-        <%= link_to 'Sign in', new_session_url %>
-        <%= link_to 'Sign up', new_user_url %>
-      <% end %>
-    </div>
+    <nav class="application_nav">
+      <ul>
+        <a href="#">Music App</a>
+      </ul>
+
+      <ul>
+        <div>
+          <% if logged_in? %>
+          <%= current_user.email %>
+          <%= button_to 'log out', session_url, method: :delete %>
+          <% else %>
+          <%= link_to 'Sign in', new_session_url %>
+          <%= link_to 'Sign up', new_user_url %>
+          <% end %>
+        </div>
+      </ul>
+    </nav>
     <%= yield %>
   </body>
 </html>

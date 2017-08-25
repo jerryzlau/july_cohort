@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+
+.application_nav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: thin solid gray;
+}
+
+.application_nav ul{
+  border: solid;
+  padding: 5px;
+  background-color: yellow;
+  border-radius: 5px;
+}
