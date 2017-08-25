@@ -16,7 +16,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-    if @cat.save
+    if @cat.save!
       redirect_to cat_url(@cat)
     else
       flash.now[:errors] = @cat.errors.full_messages
