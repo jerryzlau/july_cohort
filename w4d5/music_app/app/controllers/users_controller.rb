@@ -6,7 +6,18 @@ class UsersController < ApplicationController
 
   def create
     #for signing up
+    @user = User.new(user_params)
+    if @user.save
+      render json: "You are logged on!" #redirect to app page
+    else
+      flash[:errors] = @user.errors.full_messages
+      render :new
+    end
+  end
 
+  def show
+    #redirect to music app
+    render json: "You are logged on!"
   end
 
   private
