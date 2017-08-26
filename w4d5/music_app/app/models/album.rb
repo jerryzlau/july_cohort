@@ -3,7 +3,6 @@ class Album < ApplicationRecord
   validates :albums, :band_id, presence: true
   validates :albums, :year, presence: true
 
-
   belongs_to :band,
   primary_key: :id,
   foreign_key: :band_id,
