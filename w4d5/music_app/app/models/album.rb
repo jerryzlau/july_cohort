@@ -1,8 +1,7 @@
 class Album < ApplicationRecord
   validates :title, :band, :year, presence: true
   validates :live, inclusion: {in: [true, false]}
-  validates :title, uniqueness: true
-  
+  validates :title, uniqueness: { scope: :band_id }
 
   belongs_to :band,
   primary_key: :id,
