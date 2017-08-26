@@ -1,7 +1,8 @@
 class Album < ApplicationRecord
-  validates :albums, :title, presence: true
-  validates :albums, :band_id, presence: true
-  validates :albums, :year, presence: true
+  validates :title, :band, :year, presence: true
+  validates :live, inclusion: {in: [true, false]}
+  validates :title, uniqueness: true
+  
 
   belongs_to :band,
   primary_key: :id,
@@ -11,5 +12,6 @@ class Album < ApplicationRecord
   has_many :tracks,
   primary_key: :id,
   foreign_key: :album_id,
-  class_name: :Track
+  class_name: :Track,
+  dependent: :destroy
 end
