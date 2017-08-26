@@ -10,8 +10,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_credentials(username, password)
     if @user
       log_in_user!(@user)
-      # redirect_to user_url
-      render json: "You are logged in #{@user.email}"
+      redirect_to bands_url
     else
       flash.now[:errors] ||= []
       flash[:errors] << "Invalid email or password"
