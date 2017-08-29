@@ -2,3 +2,30 @@ Title: <%= @post.title %> <br>
 Content: <%= @post.content %>
 
 <%= link_to 'Edit Post', edit_post_url(@post) %>
+
+
+<% if @post.comments %>
+<h3>Comments</h3>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <%= comment.content %>
+      <% if comment.parent_comment_id.nil? %>
+      <%= link_to 'Comment on comment', comment_url(comment) %> <br>
+      <% end %>
+    </li>
+  <% end %>
+<% end %>
+
+
+<h3>Add comment:</h3>
+<form class="" action="<%= comments_url %>" method="post">
+  <%= auth_token %>
+
+  <label>Comment
+    <input type="text" name="comment[content]" value="">
+  </label>
+
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+
+  <input type="submit" name="" value="New Comment">
+</form>

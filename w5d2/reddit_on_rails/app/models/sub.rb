@@ -14,9 +14,8 @@ class Sub < ApplicationRecord
   class_name: :Postsub,
   dependent: :destroy,
   inverse_of: :sub
-  
+
   has_many :posts,
   through: :postsubs,
   source: :post
-
 end

@@ -1,0 +1,26 @@
+<h1>Root comment</h1>
+  <%= @comment.content %>
+
+<% unless @comment.child_comments.empty? %>
+  <h1>Nested comments</h1>
+  <% @comment.child_comments.each do |child| %>
+    <li>
+      <%= child.content %>
+    </li>
+  <% end %>
+<% end %>
+
+<h1>Add nested comment:</h1>
+<form class="" action="<%= comments_url %>" method="post">
+  <%= auth_token %>
+
+  <label>Comment
+    <input type="text" name="comment[content]" value="">
+  </label>
+
+  <input type="hidden" name="comment[parent_comment_id]" value="<%= @comment.id %>">
+
+  <input type="hidden" name="comment[post_id]" value="<%= @comment.post.id %>">
+
+  <input type="submit" name="" value="New nested Comment">
+</form>
