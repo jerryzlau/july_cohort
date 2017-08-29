@@ -8,10 +8,10 @@ class CommentsController < ApplicationController
     @comment.post_id = comment_params[:post_id]
     @comment.parent_comment_id = comment_params[:parent_comment_id]
     if @comment.save
-      redirect_to comment_url(@comment.parent_comment)
+      redirect_to post_url(@comment.post)
     else
       flash[:errors] = @comment.errors.full_messages
-      redirect_to comment_url(@comment.parent_comment)
+      redirect_to post_url(@comment.post)
     end
   end
 

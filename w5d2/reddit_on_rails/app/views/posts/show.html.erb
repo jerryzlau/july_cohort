@@ -4,18 +4,15 @@ Content: <%= @post.content %>
 <%= link_to 'Edit Post', edit_post_url(@post) %>
 
 
-<% if @post.comments %>
 <h3>Comments</h3>
-  <% @post.comments.each do |comment| %>
-    <li>
-      <%= comment.content %>
-      <% if comment.parent_comment_id.nil? %>
-      <%= link_to 'Comment on comment', comment_url(comment) %> <br>
-      <% end %>
-    </li>
-  <% end %>
-<% end %>
 
+<% @post.comments.where(parent_comment_id: nil).each do |top_comment| %>
+  <%= top_comment.content %>
+  <%= link_to 'Comment on comment', comment_url(top_comment) %>
+  <ul>
+    <%= render 'comments/comment', top_children: top_comment.child_comments %>
+  </ul>
+<% end %>
 
 <h3>Add comment:</h3>
 <form class="" action="<%= comments_url %>" method="post">

@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
-
+  include Votable
+  
   validates :title, :subs, :user, presence: true
 
   belongs_to :user,
