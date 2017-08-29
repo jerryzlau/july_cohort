@@ -1,0 +1,12 @@
+<p>Title: <%= @sub.title %> </p>
+<p>Description: <%= @sub.description %> </p>
+
+<%= button_to 'New Post', new_post_url, method: :get %>
+
+<% if @sub.posts %>
+  <% @sub.posts.each do |post| %>
+    Title: <%= link_to post.title, post_url(post) %> <br>
+    Content: <%= post.content %>  <br>
+    Author: <%= post.user.username %> <br>
+  <% end %>
+<% end %>
