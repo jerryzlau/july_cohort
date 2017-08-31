@@ -17,3 +17,15 @@ def transpose(array)
   end
   result
 end
+
+def bubbleSort(array)
+  array.length.times do
+    (0...array.length).each do |idx|
+      if idx+1 < array.length && array[idx] > array[idx+1]
+        array[idx], array[idx+1] = array[idx+1], array[idx]
+      end
+    end
+  end
+
+  array
+end
