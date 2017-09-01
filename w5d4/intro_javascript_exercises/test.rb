@@ -44,21 +44,17 @@ def fib(n)
   result << next_fib
 end
 
-def bsearch(array, target)
-  if array.length == 1
-    array.first == target ? array.first : nil
-  end
-
+def my_bsearch(array, target)
+  return nil if array.length == 0
   mid = array.length/2
-  left = array.take(mid)
-  right = array.drop(mid)
 
-  if array[mid] == target
+  case array[mid] <=> target
+  when 0
     return mid
-  elsif target > array[mid]
-    return bsearch(right, target) + mid
-  elsif target < array[mid]
-    bsearch(left, target)
+  when 1
+    return my_bsearch(array.dup.take(mid), target)
+  else
+    search_res = my_bsearch(array.dup.drop(mid+1), target)
+    search_res.nil? ? nil : mid + 1 + search_res
   end
-
 end
