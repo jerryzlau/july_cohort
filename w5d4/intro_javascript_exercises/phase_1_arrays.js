@@ -33,3 +33,5 @@ Array.prototype.transpose = function(){
   }
   return result;
 };
+
+console.log([1,2,3,4,-1].twoSum());
