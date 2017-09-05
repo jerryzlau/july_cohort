@@ -19,8 +19,7 @@ MovingObject.prototype.draw = function(ctx){
 };
 
 MovingObject.prototype.collideWith = function (otherObject) {
-  this.game.remove(this);
-  otherObject.game.remove(otherObject);
+  console.log("asteroid collideWith");
 };
 
 MovingObject.prototype.isCollidedWith = function (otherObject) {
