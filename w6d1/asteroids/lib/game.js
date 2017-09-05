@@ -1,4 +1,5 @@
 const Asteroid = require('./asteroid');
+const Util = require('./utils');
 
 const Game = function Game(){
   this.asteroids = [];
@@ -34,6 +35,28 @@ Game.prototype.draw = function (ctx) {
   this.asteroids.forEach(function(a){ a.draw(ctx); });
 };
 
+Game.prototype.checkCollisions = function () {
+  this.asteroids.forEach(function(a, i){
+    this.asteroids.forEach(function(b, i2){
+      if (i < i2 && a.isCollidedWith(b)){
+        a.collideWith(b);
+      }
+    });
+  }.bind(this));
+};
+
+Game.prototype.remove = function (asteroid) {
+  // let index = this.asteroids.indexOf(asteroid);
+  // this.asteroids.splice(index, 1);
+  this.asteroids = this.asteroids.filter(a => a !== asteroid);
+};
+
+Game.prototype.step = function () {
+  this.moveObjects();
+  this.checkCollisions();
+};
+
+
 Game.prototype.moveObjects = function (){
   this.asteroids.forEach(el => el.move());
   this.prune();
@@ -51,7 +74,8 @@ Game.prototype.prune = function (){
 
 Game.prototype.addAsteroids = function () {
   while(this.asteroids.length < Game.NUM_ASTEROIDS){
-    this.asteroids.push(new Asteroid({ pos: this.randomPosition() }));
+    this.asteroids.push(new Asteroid({ pos: this.randomPosition(),
+                                       game: this }));
   }
 };
 

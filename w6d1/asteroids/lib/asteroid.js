@@ -6,13 +6,14 @@ const Asteroid = function Asteroid(options){
   MovingObject.call(this, { radius: Asteroid.RADIUS,
                             color: Asteroid.COLOR,
                             pos: options.pos,
-                            vel: Util.randomVec(Asteroid.SPEED)
+                            vel: Util.randomVec(Asteroid.SPEED),
+                            game: options.game 
                           });
 
 };
 
 Asteroid.COLOR = "grey";
-Asteroid.RADIUS = 30;
+Asteroid.RADIUS = 25;
 Asteroid.SPEED = 2;
 
 Util.inherits(Asteroid, MovingObject);

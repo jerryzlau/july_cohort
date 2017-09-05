@@ -6,11 +6,14 @@ const GameView = function GameView(ctx){
 };
 
 GameView.prototype.start = function start(){
-  // this.game.moveObjects();
-  // this.game.draw();
-  // window.requestAnimationFrame(this.start.bind(this));
+  // function animate(){
+  //   this.game.moveObjects();
+  //   this.game.draw();
+  //   window.requestAnimationFrame(animate.bind(this));
+  // }
+  // window.requestAnimationFrame(animate.bind(this));
   window.setInterval(function(){
-    this.game.moveObjects();
+    this.game.step();
     this.game.draw(this.ctx);
   }.bind(this), 20);
 };
