@@ -12,32 +12,30 @@ const reader = readline.createInterface({
 
 class Game {
   constructor() {
-    this.board = new Array([3,2,1],[],[]);
+    this.tower = new Array([3,2,1],[],[]);
   }
 
   isValidMove(startTowerIdx, endTowerIdx) {
-    if(!this.board[startTowerIdx] || !this.board[endTowerIdx]) {
+    if(!this.tower[startTowerIdx].length === 0) {
       return false;
-    }else if(this.board[endTowerIdx].last() < this.board[startTowerIdx].last()){
-      return false;
-    }else if (this.board[startTowerIdx].empty()){
-      return false;
-    }else {
+    }else if(this.tower[endTowerIdx].length == 0){
       return true;
+    }else {
+      return this.tower[startTowerIdx.length-1] < this.tower[endTowerIdx.length-1];
     }
   }
 
   move(startTowerIdx, endTowerIdx){
     if (this.isValidMove(startTowerIdx, endTowerIdx)){
-      this.board[endTowerIdx].push(this.board[startTowerIdx].pop());
+      this.tower[endTowerIdx].push(this.tower[startTowerIdx].pop());
     }
     return this.isValidMove(startTowerIdx, endTowerIdx);
   }
 
   isWon(){
-    let firstCheck = this.board[1] === [3,2,1];
-    let secondCheck = this.board[2] === [3,2,1];
-    if (this.board[0].empty() && (firstCheck || secondCheck)){
+    let firstCheck = this.tower[1] === [3,2,1];
+    let secondCheck = this.tower[2] === [3,2,1];
+    if (this.tower[0].empty() && (firstCheck || secondCheck)){
       return true;
     }
       return false;
@@ -45,15 +43,17 @@ class Game {
 }
 
 Game.prototype.promptMove = function () {
-  console.log(this.board);
+  console.log(this.tower);
   reader.question('From which tower: ', (startTowerIdx) => {
+      startTowerIdx = parseInt(startTowerIdx);
     reader.question('To which towe: ', (endTowerIdx) => {
+      endTowerIdx = parseInt(endTowerIdx);
       if (!this.move(startTowerIdx, endTowerIdx)){
         console.log("Invalid move");
       }
-      reader.close();
+      // reader.close();
     });
-    reader.close();
+    // reader.close();
   });
 };
 
