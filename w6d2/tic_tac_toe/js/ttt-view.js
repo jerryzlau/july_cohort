@@ -18,7 +18,6 @@ class View {
   }
 
   makeMove($square) {
-    // debugger;
     const cellPos = $square.data("pos");
     this.game.playMove(cellPos);
     const [row, col] = cellPos;
@@ -33,11 +32,12 @@ class View {
     }
     if (this.game.isOver()){
       setTimeout(() => {
-      if (this.game.winner()) {
-        alert(`Player ${this.game.board.winner()} Won!`);
-      } else {
-        alert("No winner.");
-      }}, 25);
+        if (this.game.winner()) {
+          alert(`Player ${this.game.board.winner()} Won!`);
+        } else {
+          alert("No winner.");
+        }
+      }, 25);
     }
   }
 
@@ -51,7 +51,7 @@ class View {
       }
     }
     this.append($ul);
-    
+
   }
 }
 
