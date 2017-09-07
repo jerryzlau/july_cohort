@@ -68,18 +68,25 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 const followToggle = __webpack_require__(1);
+const usersSearch = __webpack_require__(3);
 
 $( () => {
   // Your code here
   $('button.follow-toggle').each((index, button) => {
     const followTog = new followToggle($(button));
   });
+
+  $('nav.users-search').each((index, nav) => {
+    const userSearch = new usersSearch($(nav));
+  });
 });
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(2);
 
 class FollowToggle {
   constructor($el){
@@ -93,51 +100,128 @@ class FollowToggle {
   render(){
     if(this.followState === "unfollowed"){
       this.$el.html("Follow!");
-    }else{
+      this.$el.prop("disabled", false);
+    }else if(this.followState === "followed"){
       this.$el.html("Unfollow!");
+      this.$el.prop("disabled", false);
+    }else if (this.followState === "following"){
+      this.$el.html("following");
+      this.$el.prop("disabled", true);
+    }else if (this.followState === "unfollowing"){
+      this.$el.html("unfollowing");
+      this.$el.prop('disabled', true);
     }
   }
 
   handleClick(){
     this.$el.on("click", event => {
       event.preventDefault();
-      let follow = '';
-
       if (this.followState === "unfollowed"){
-        follow = 'POST';
-      }else{
-        follow = 'DELETE';
+        this.followState = "following";
+        this.render();
+        APIUtil.followUser(this.userId).then(() => {
+          this.followState = "followed";
+          this.render();
+        });
+      }else if(this.followState === "followed"){
+        this.followState = 'unfollowing';
+        this.render();
+        APIUtil.unfollowUser(this.userId).then(() => {
+          this.followState = "unfollowed";
+          this.render();
+        });
       }
-
-      $.ajax({
-        url: `/users/${this.userId}/follow`,
-        type: follow,
-        dataType: 'JSON',
-        success: this.successCall(follow),
-        error: function(errMsg) {
-          console.log(errMsg);
-        }
-      });
-
-
     });
   }
 
-  successCall(follow){
-    if (follow === 'POST'){
-      this.followState = 'followed';
-      console.log('You have followed this person!');
-    }else{
-      this.followState = 'unfollowed';
-      console.log('You have unfollowed this person!');
-    }
-    this.render();
-  }
 }
 
 
 
 module.exports = FollowToggle;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+const APIUtil = {
+  followUser: id => {
+    // ...
+    return $.ajax({
+      url: `/users/${id}/follow`,
+      type: 'POST',
+      dataType: 'JSON'
+    });
+  },
+
+  unfollowUser: id => {
+    // ...
+    return $.ajax({
+      url: `/users/${id}/follow`,
+      type: 'DELETE',
+      dataType: 'JSON'
+    });
+  },
+
+  searchUsers: query => {
+    return $.ajax({
+      url: `/users/search`,
+      type: 'GET',
+      dataType: 'JSON',
+      data: {query}
+    });
+  }
+};
+
+module.exports = APIUtil;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(2);
+const FollowToggle = __webpack_require__(1);
+
+class UsersSearch{
+  constructor($nav){
+    this.$nav = $nav;
+    this.$input = $nav.find('input[name=username]');
+    this.$ul = $nav.find('.users');
+    this.$input.on('input', this.handleInput.bind(this));
+  }
+
+  handleInput(){
+    APIUtil.searchUsers(this.$input.val())
+           .then(users => this.renderResults(users));
+  }
+
+  renderResults(users){
+    this.$ul.empty();
+    users.forEach((user) => {
+      let $a = $('<a>');
+      let $li = $('<li>');
+      $a.attr("href", `/users/${user.id}`);
+      $a.html(`${user.username}`);
+      $li.append($a);
+      let button = this.createButton(user);
+      $li.append(button);
+      this.$ul.append($li);
+    });
+  }
+
+  createButton(user){
+    let button = $('<button></button>');
+    let $followToggle = new FollowToggle(button, {
+        userId: user.id,
+        followState: user.followed ? "followed" : "unfollowed"
+    });
+    return button;
+  }
+}
+
+module.exports = UsersSearch;
 
 
 /***/ })

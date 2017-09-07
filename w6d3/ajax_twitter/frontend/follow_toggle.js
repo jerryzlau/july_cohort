@@ -1,3 +1,5 @@
+const APIUtil = require('./api_util');
+
 class FollowToggle {
   constructor($el){
     this.userId = $el.data("user-id");
@@ -10,46 +12,40 @@ class FollowToggle {
   render(){
     if(this.followState === "unfollowed"){
       this.$el.html("Follow!");
-    }else{
+      this.$el.prop("disabled", false);
+    }else if(this.followState === "followed"){
       this.$el.html("Unfollow!");
+      this.$el.prop("disabled", false);
+    }else if (this.followState === "following"){
+      this.$el.html("following");
+      this.$el.prop("disabled", true);
+    }else if (this.followState === "unfollowing"){
+      this.$el.html("unfollowing");
+      this.$el.prop('disabled', true);
     }
   }
 
   handleClick(){
     this.$el.on("click", event => {
       event.preventDefault();
-      let follow = '';
-
       if (this.followState === "unfollowed"){
-        follow = 'POST';
-      }else{
-        follow = 'DELETE';
+        this.followState = "following";
+        this.render();
+        APIUtil.followUser(this.userId).then(() => {
+          this.followState = "followed";
+          this.render();
+        });
+      }else if(this.followState === "followed"){
+        this.followState = 'unfollowing';
+        this.render();
+        APIUtil.unfollowUser(this.userId).then(() => {
+          this.followState = "unfollowed";
+          this.render();
+        });
       }
-
-      $.ajax({
-        url: `/users/${this.userId}/follow`,
-        type: follow,
-        dataType: 'JSON',
-        success: this.successCall(follow),
-        error: function(errMsg) {
-          console.log(errMsg);
-        }
-      });
-
-
     });
   }
 
-  successCall(follow){
-    if (follow === 'POST'){
-      this.followState = 'followed';
-      console.log('You have followed this person!');
-    }else{
-      this.followState = 'unfollowed';
-      console.log('You have unfollowed this person!');
-    }
-    this.render();
-  }
 }
 
 
