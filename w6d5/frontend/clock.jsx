@@ -25,16 +25,13 @@ class Clock extends React.Component{
     let hours = this.state.time.getHours();
     let minutes = this.state.time.getMinutes();
     let seconds = this.state.time.getSeconds();
-    let month = this.state.time.getMonth() + 1;
-    let date = this.state.time.getDate();
-    let year = this.state.time.getFullYear();
-    let day = this.state.time.getDay();
     let timeZone = this.state.time.getTimezoneOffset();
+    let fullString = this.state.time.toDateString();
 
     return (
       <div>
         <h1>Food Clock</h1>
-        
+
         <div className="clock">
           <h4>Time: </h4>
           <h4> {hours} : {minutes} : {seconds} </h4>
@@ -42,7 +39,7 @@ class Clock extends React.Component{
 
         <div className="date">
           <h4>Date: </h4>
-          <h4> {day} {month}/{date}/{year} </h4>
+          <h4> {fullString} </h4>
         </div>
 
       </div>

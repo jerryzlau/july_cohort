@@ -19,3 +19,7 @@
   display: flex;
   justify-content: space-between;
 }
+
+.weather{
+  border: solid 4px black;
+}
