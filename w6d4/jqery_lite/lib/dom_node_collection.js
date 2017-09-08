@@ -47,6 +47,43 @@ class DOMNodeCollection {
       el.className = wanted.join(", ");
     });
   }
+
+  //traversal
+  children(){
+    let kids = [];
+    this.$el.forEach(el => {
+      Array.from(el.children).forEach(cl => {
+        kids.push(cl);
+      });
+    });
+    return new DOMNodeCollection(kids);
+  }
+
+  parent(){
+    let parents = [];
+    this.$el.forEach(el => {
+      parents.push(el.parentNode);
+    });
+
+    return new DOMNodeCollection(parents);
+  }
+
+  find(selector){
+    let result = [];
+    this.$el.forEach(el => {
+      result.push(el.querySelectorAll(selector));
+    });
+    return new DOMNodeCollection(result);
+  }
+
+  remove(){
+    this.$el.forEach(el => {
+      el.remove();
+    });
+
+    this.$el = [];
+  }
+
 }
 
 
