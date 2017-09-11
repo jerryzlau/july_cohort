@@ -1,10 +1,8 @@
 const allTodos = (state) => {
-  const todos = [];
-  Object.keys(state.todos).forEach(id => {
+  return Object.keys(state.todos).map(id => {
     //object id starts at 1 but array index starts at 0
-    todos.push(state.todos[id]);
+    return state.todos[id];
   });
-  return todos;
 
 };
 

@@ -1,13 +1,16 @@
 import React from 'react';
 
-class TodoListItem extends React.Component{
-  render(){
-    return(
-      <div>
+const TodoListItem = ({ todo }) => (
+  <div className="todo-item">
+    <h3>
+      {todo.title}
+    </h3>
+    <span>
+      {todo.body}
+    </span>
+  </div>
+);
 
-      </div>
-    );
-  }
-}
+
 
 export default TodoListItem;

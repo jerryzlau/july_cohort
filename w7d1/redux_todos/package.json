@@ -1,7 +1,6 @@
 {
   "name": "redux_todos",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,5 +20,6 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "webpack": "^3.5.6"
-  }
+  },
+  "description": ""
 }
