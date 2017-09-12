@@ -1,5 +1,5 @@
 import React from 'react';
-import uniqueId from '../../util';
+// import uniqueId from '../../util';
 
 class TodoForm extends React.Component {
 
@@ -8,7 +8,6 @@ class TodoForm extends React.Component {
     this.state = {
       title: "",
       body: "",
-      id: "",
       done: false
     };
     this.submit = this.submit.bind(this);
@@ -30,12 +29,12 @@ class TodoForm extends React.Component {
 
   submit(e){
     e.preventDefault();
-    const newState = {id: uniqueId()};
-    Object.assign(this.state, newState);
     this.props.action(this.state);
+    // const newState = {id: uniqueId()};
+    // Object.assign(this.state, newState);
+    // this.props.action(this.state);
     this.setState({title: "",
                    body: "",
-                   id: "",
                    done: false});
   }
 
