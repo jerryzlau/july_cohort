@@ -33,6 +33,10 @@ class TodoForm extends React.Component {
     const newState = {id: uniqueId()};
     Object.assign(this.state, newState);
     this.props.action(this.state);
+    this.setState({title: "",
+                   body: "",
+                   id: "",
+                   done: false});
   }
 
   render() {
@@ -44,6 +48,7 @@ class TodoForm extends React.Component {
             title:
             <input onChange={this.setTitle} value={title}></input>
           </label>
+
           <label>
             body:
             <input onChange={this.setBody} value={body}></input>
