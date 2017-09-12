@@ -3,15 +3,14 @@ import uniqueId from '../../util';
 
 class TodoForm extends React.Component {
 
-  constructor(action) {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: "",
       body: "",
       id: "",
       done: false
     };
-    this.action = action;
     this.submit = this.submit.bind(this);
     this.setTitle = this.setTitle.bind(this);
     this.setBody = this.setBody.bind(this);
@@ -29,11 +28,11 @@ class TodoForm extends React.Component {
     this.setState({body});
   }
 
-  submit(){
-    const id = uniqueId();
-    this.setState({id});
-    debugger
-    this.action(this.state);
+  submit(e){
+    e.preventDefault();
+    const newState = {id: uniqueId()};
+    Object.assign(this.state, newState);
+    this.props.action(this.state);
   }
 
   render() {

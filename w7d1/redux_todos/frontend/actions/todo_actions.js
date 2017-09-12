@@ -1,4 +1,4 @@
-export const receiveTodos = (todos) => {
+ export const receiveTodos = (todos) => {
   return{
     type: 'RECEIVE_TODOS',
     todos
