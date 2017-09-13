@@ -29,13 +29,9 @@ class TodoForm extends React.Component {
 
   submit(e){
     e.preventDefault();
-    this.props.action(this.state);
-    // const newState = {id: uniqueId()};
-    // Object.assign(this.state, newState);
-    // this.props.action(this.state);
-    this.setState({title: "",
-                   body: "",
-                   done: false});
+    this.props.action(this.state).then(
+      () => this.setState({ title: '', body: '' })
+    );
   }
 
   render() {
