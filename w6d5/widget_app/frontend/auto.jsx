@@ -14,13 +14,14 @@ class AutoComplete extends React.Component{
   handleSearch(e){
     let inputVal = e.target.value;
     let names; 
-    
+
     if (inputVal === "") {
       names = [];
     }else{
       names = this.props.name.filter(function(n){
         return n.substring(0,inputVal.length) === inputVal;
       });
+      console.log(names);
     }
 
     this.setState({inputVal, names});
@@ -31,17 +32,21 @@ class AutoComplete extends React.Component{
     return (
       <div>
         <br/>
-        <label>
-          Search Names: <input type="text" onChange={this.handleSearch} value={inputVal}></input>
-        </label>
+        <h1>Search Bar</h1>
+        <div className="name-search">
+          <br/>
+          <label>
+            Search Names: <input type="text" onChange={this.handleSearch} value={inputVal}></input>
+          </label>
 
-        <ul>
-          {
-            names.map(el => (
-              <li key={el}>{this.cap(el)}</li>
-            ))
-          }
-        </ul>
+          <ul>
+            {
+              names.map(el => (
+                <li key={el}>{this.cap(el)}</li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     );
   }

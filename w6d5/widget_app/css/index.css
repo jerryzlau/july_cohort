@@ -1,3 +1,8 @@
+#root{
+  display: flex; 
+  justify-content: center;
+}
+
 .clock {
   font-family: 'Lato', sans-serif;
   display: flex;
@@ -22,4 +27,17 @@
 
 .weather{
   border: solid 4px black;
+}
+
+.name-search{
+  border: solid 4px black;
+}
+
+.name-search li{
+  cursor: pointer;
+}
+
+.middle{
+  display: flex; 
+  justify-content: space-around;
 }
