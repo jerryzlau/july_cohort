@@ -4,7 +4,6 @@ const selectAllPokemon = (state) => {
     //object id starts at 1 but array index starts at 0
     return state.entities.pokemon[id];
   });
-
 };
 
 export default selectAllPokemon;

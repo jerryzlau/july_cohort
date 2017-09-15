@@ -23,5 +23,14 @@ class Pokemon < ApplicationRecord
   validates :attack, :defense, numericality: true
   validates :poke_type, inclusion: { in: TYPES }
 
+  # attr_reader :item_id
   has_many :items
+
+  # def item_ids
+  #   ids = []
+  #   self.items.each do |item|
+  #     ids << item.id
+  #   end
+  #   ids
+  # end
 end
