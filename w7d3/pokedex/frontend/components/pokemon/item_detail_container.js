@@ -1,13 +1,11 @@
 import {connect} from 'react-redux';
-import {selectAllPokemon} from '../../reducers/selector';
 import {requestOnePokemon} from '../../actions/pokemon_actions';
-import PokemonDetail from './pokemon_detail';
+import ItemDetail from './item_detail';
+import {selectPokemonItem} from '../../reducers/selector';
 
 
 const mapStateToProps = state => {
-  const pokemon = state.entities.pokemon[state.ui.pokeDisplay];
-  const items = state.entities.items;
-  return { pokemon, items };
+  items: state.entities.items;
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -18,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PokemonDetail);
+)(ItemDetail);
