@@ -24,12 +24,17 @@ class PokemonIndex extends React.Component{
 
   render(){
     return(
-      <div>
-        <h1>Pokemon Index</h1>
-        <ul>
-          {this.pokemonList()}
-        </ul>
-        <Route path='/pokemon/:pokemonId' component={PokemonDetailContainer}/>
+      <div className="pokedex">
+        <div>
+          <h1>Pokemon Index</h1>
+          <ul>
+            {this.pokemonList()}
+          </ul>
+        </div>
+
+        <div>
+          <Route path='/pokemon/:pokemonId' component={PokemonDetailContainer}/>
+        </div>
       </div>
     );
   }
