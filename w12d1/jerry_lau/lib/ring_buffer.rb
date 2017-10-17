@@ -61,11 +61,12 @@ class RingBuffer
   end
 
   def resize!
-    array = Array.new(@length*2)
+    array = Array.new(@capacity*2)
     (0..@length-1).each do |idx|
       array[idx] = @store[idx]
     end 
     @capacity *= 2
     @store = array 
+    @start_idx = 0 
   end
 end
