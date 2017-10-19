@@ -3,6 +3,7 @@ require_relative 'p04_linked_list'
 
 class HashMap
   include Enumerable
+
   attr_reader :count
 
   def initialize(num_buckets = 8)
@@ -11,7 +12,7 @@ class HashMap
   end
 
   def include?(key)
-     bucket(key).include?(key)
+    bucket(key).include?(key)
   end
 
   def set(key, val)
@@ -31,24 +32,24 @@ class HashMap
 
   def delete(key)
     removal = bucket(key).remove(key)
-    @count -= 1 
+    @count -= 1 if removal
     removal
   end
 
   def each
     @store.each do |bucket|
-      bucket.each { |link| yield [link.key, link.val] }
+      bucket.each { |node| yield [node.key, node.val] }
     end
   end
 
-  # uncomment when you have Enumerable included
   def to_s
     pairs = inject([]) do |strs, (k, v)|
-      strs << "#{k.to_s} => #{v.to_s}"
+      strs << "#{k} => #{v}"
     end
     "{\n" + pairs.join(",\n") + "\n}"
   end
 
+  alias_method :inspect, :to_s
   alias_method :[], :get
   alias_method :[]=, :set
 
@@ -64,12 +65,11 @@ class HashMap
     @count = 0
 
     old_store.each do |bucket|
-      bucket.each { |link| set(link.key, link.val) }
+      bucket.each { |node| set(node.key, node.val) }
     end
   end
 
   def bucket(key)
-    # optional but useful; return the bucket corresponding to `key`
     @store[key.hash % num_buckets]
   end
 end

@@ -1,33 +1,36 @@
 class MaxIntSet
   def initialize(max)
-    @store = Array.new(max)
-    @max = max
+    @store = Array.new(max, false)
   end
 
   def insert(num)
-    raise "Out of bounds" if ((num < 0) || (num > @max))
-    @store[num] = true 
+    validate!(num)
+    return false if @store[num]
+    @store[num] = true
   end
 
   def remove(num)
-    raise "Out of bounds" if ((num < 0) || (num > @max))
-    @store[num] = false 
+    validate!(num)
+    return nil unless include?(num)
+    @store[num] = false
+    num
   end
 
   def include?(num)
+    validate!(num)
     @store[num]
   end
 
   private
 
   def is_valid?(num)
-    raise "Out of bounds" if (num < 0) || (num > @max)
+    num.between?(0, @store.length - 1)
   end
 
   def validate!(num)
+    raise "Out of bounds" unless is_valid?(num)
   end
 end
-
 
 class IntSet
   def initialize(num_buckets = 20)
@@ -35,21 +38,23 @@ class IntSet
   end
 
   def insert(num)
-    @store[num%20] << num
+    return false if include?(num)
+    self[num] << num
+    num
   end
 
   def remove(num)
-    @store[num%20].delete(num)
+    self[num].delete(num)
   end
 
   def include?(num)
-    @store[num%20].include?(num)
+    self[num].include?(num)
   end
 
   private
 
   def [](num)
-    # optional but useful; return the bucket corresponding to `num`
+    @store[num % num_buckets]
   end
 
   def num_buckets
@@ -66,28 +71,23 @@ class ResizingIntSet
   end
 
   def insert(num)
-    if @count == num_buckets
-      @store[num%num_buckets] << num
-      resize! 
-    else 
-      @store[num%num_buckets] << num 
-      @count += 1 
-    end 
+    return false if include?(num)
+    self[num] << num
+    @count += 1
+    resize! if num_buckets < @count
+
+    num
   end
 
   def remove(num)
-    @store[num%num_buckets].delete(num)
+    self[num].delete(num)
   end
 
   def include?(num)
-    @store[num%num_buckets].include?(num)
+    self[num].include?(num)
   end
 
   private
-
-  def [](num)
-    # optional but useful; return the bucket corresponding to `num`
-  end
 
   def num_buckets
     @store.length
@@ -99,5 +99,9 @@ class ResizingIntSet
     @store = Array.new(num_buckets * 2) { Array.new }
 
     old_store.flatten.each { |num| insert(num) }
+  end
+
+  def [](num)
+    @store[num % num_buckets]
   end
 end
