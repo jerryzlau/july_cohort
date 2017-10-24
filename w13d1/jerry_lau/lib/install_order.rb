@@ -10,5 +10,10 @@
 
 
 def install_order(arr)
-
+  max = 0 
+  vertices = {}
+  arr.each do |tuple|
+    vertices[tuple[0]] = Vertex.new(tuple[0]) unless vertices[tuple[0]]
+    vertices[tuple[1]] = Vertex.new(tuple[1]) unless vertices[tuple[1]]
+  end 
 end
